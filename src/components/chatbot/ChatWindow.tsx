@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { colors } from "../../theme/colors";
 import ChatBody, { type MessageData } from "./ChatBody";
 import ChatInput from "./ChatInput";

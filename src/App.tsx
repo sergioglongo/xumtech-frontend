@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ServiceCard from './components/ServiceCard';
 import { colors } from './theme/colors';
 import ChatWindow from './components/chatbot/ChatWindow';
