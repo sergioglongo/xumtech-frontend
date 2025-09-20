@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Message from './Message';
 
-// En el futuro, esta interfaz se usará para los mensajes dinámicos
 export interface MessageData {
   id: number;
   text: string;
@@ -13,8 +12,20 @@ interface ChatBodyProps {
 }
 
 const ChatBody: React.FC<ChatBodyProps> = ({ messages }) => {
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatRef.current) {
+      const chatBody = chatRef.current;
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-    <div className="flex-1 overflow-y-auto p-4 space-y-4">
+    <div
+      ref={chatRef}
+      className="flex-1 overflow-y-auto p-4 space-y-4"
+    >
       {messages.map((message) => (
         <Message key={message.id} text={message.text} sender={message.sender} />
       ))}

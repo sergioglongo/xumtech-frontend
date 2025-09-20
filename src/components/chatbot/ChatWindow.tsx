@@ -9,24 +9,23 @@ interface ChatWindowProps {
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
-  // El estado de los mensajes ahora se gestiona aquí
+  
   const [messages, setMessages] = useState<MessageData[]>([
     {
       id: 1,
-      text: "¡Hola! Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?",
+      text: "¡Hola! ¿Te puedo ayudar con alguna pregunta sobre el proceso?",
       sender: "bot",
     },
   ]);
-  // Función para manejar el envío de un nuevo mensaje
+  
   const handleSendMessage = async (text: string) => {
     const userMessage: MessageData = {
-      id: Date.now(), // Usamos timestamp como clave única por ahora
+      id: Date.now(),
       text,
       sender: "user",
     };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
-    // Llamar al backend para obtener la respuesta del bot
     try {
       const response = await findBestAnswer(text);
       const botResponseText =
@@ -35,7 +34,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         "Lo siento, no pude procesar tu solicitud.";
 
       const botMessage: MessageData = {
-        id: Date.now() + 1, // Asegurar un ID único
+        id: Date.now() + 1,
         text: botResponseText,
         sender: "bot",
       };
@@ -54,7 +53,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
 
   return (
     <div className="fixed bottom-5 right-6 z-50 flex h-[70vh] max-h-[700px] w-96 flex-col rounded-2xl bg-white shadow-2xl">
-      {/* Header */}
       <header
         className="flex items-center justify-between rounded-t-2xl px-4 py-3"
         style={{ backgroundColor: colors.primary }}
@@ -67,13 +65,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
           onClick={onClose}
         >
           X
-        </button>{" "}
+        </button>
       </header>
 
-      {/* Message Area */}
       <ChatBody messages={messages} />
 
-      {/* Input Footer */}
       <ChatInput onSendMessage={handleSendMessage} />
     </div>
   );
